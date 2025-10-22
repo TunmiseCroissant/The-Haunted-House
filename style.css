@@ -49,6 +49,8 @@
     border: 1px solid black;
     min-width: 500px;
     text-align: center;
+    max-width: 50%;
+    overflow-wrap: break-word;
 }
 
 #replies div:hover {
