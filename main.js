@@ -6,7 +6,7 @@ class Dialogue {
     constructor(lines, replies) {
         this.lines = lines,
         this.replies = replies
-        this.index = 1
+        this.index = 0
     }
 
     checkForReplies() {
@@ -18,13 +18,29 @@ class Dialogue {
                 response.innerHTML = reply.displayText
                 replyBox.appendChild(response)
             })
+
+            return true
         }
+
+        return false
     }
+
 
     startDialogue() {
         this.index = 0
-        currentLine.innerText = lines[0]
+        currentLine.innerText = this.lines[0]
+        this.checkForReplies()
         dialogueBox.style.display = "flex"
+        dialogueBox.addEventListener("click", () => {
+            if ((this.lines.length - 1 === this.index) && !this.checkForReplies) {
+                dialogueBox.style.display = "none"
+            }
+            if (!this.checkForReplies()) {
+                this.index++
+                currentLine.innerText = this.lines[this.index]
+                this.checkForReplies()
+            }
+        })
     }
 }
 
@@ -53,4 +69,4 @@ console.log(generateDialogueReplies(test2))
 
 const D1 = new Dialogue(["your mom", "your dad"], generateDialogueReplies(test2))
 
-D1.checkForReplies()
+D1.startDialogue()
