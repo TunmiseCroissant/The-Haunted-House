@@ -97,12 +97,13 @@ let turnToObject = (array) => {
 
 // test dialogue
 
-const D1 = new Dialogue(["your mom", "your dad", "your cat"], generateDialogueReplies(test2))
 
 const test2 = {
     1: [["display this", "line after 1", "line after 2"], ["display this 2nd", "after you display 2", "after 2"]] 
     // the format for replies is the line number mapped to the array, the first item being the display text and everything after that is lines after that
 }
+
+const D1 = new Dialogue(["your mom", "your dad", "your cat"], generateDialogueReplies(test2))
 
 D1.startDialogue()
 
