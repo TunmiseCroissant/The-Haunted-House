@@ -1,3 +1,4 @@
+// set up the document elements
 let dialogueBox = document.getElementById("dialogue");
 let replyBox = document.getElementById("replies");
 let currentLine = document.getElementById("currentLine");
@@ -13,6 +14,7 @@ class Dialogue {
         this.running = false
     }
 
+    // starts the dialogue
     startDialogue() {
         this.index = 0
         currentLine.innerText = this.lines[this.index]
@@ -48,6 +50,7 @@ class Dialogue {
         })
     }
 
+    //checks if using reply lines or normal lines
     checkLinesToUse() {
         this.StringIndex = this.index.toString()
         if (this.replies.has(this.StringIndex)) {
@@ -73,10 +76,7 @@ class Dialogue {
 }
 
 
-const test2 = {
-    1: [["display this", "line after 1", "line after 2"], ["display this 2nd", "after you display 2", "after 2"]]
-}
-
+// Generating reply object from an array of replies
 
 let generateDialogueReplies = (replies) => {
     const Returnreplies = new Map()
@@ -93,7 +93,17 @@ let turnToObject = (array) => {
     return ReturnObject
 }
 
+// End.
+
+// test dialogue
 
 const D1 = new Dialogue(["your mom", "your dad", "your cat"], generateDialogueReplies(test2))
 
+const test2 = {
+    1: [["display this", "line after 1", "line after 2"], ["display this 2nd", "after you display 2", "after 2"]] 
+    // the format for replies is the line number mapped to the array, the first item being the display text and everything after that is lines after that
+}
+
 D1.startDialogue()
+
+// end test dialogue
