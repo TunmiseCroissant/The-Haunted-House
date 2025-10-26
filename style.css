@@ -2,9 +2,24 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: "PixelFont";
+    src: url(./fonts/thatthatnewpixelfamilytest-square.otf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "PixelFont";
+    src: url(./fonts/thatthatnewpixelfamilytest-italicsquare.otf);
+    font-weight: normal;
+    font-style: italic;
+}
+
+
 #dialogue {
     position: fixed;
-    bottom: 50px;
+    bottom: 100px;
     left: 0;
     width: 100%;
     border: 3px solid black;
@@ -31,11 +46,15 @@
     line-height: 50px;
     width: 80%;
     padding-bottom: 30px;
+    font-family: PixelFont;
 }
 
 #speakerLine {
     text-align: start;
     width: 100%;
+    font-family: PixelFont;
+    font-size: 70px;
+    font-style: italic;
 }
 
 #replies {
@@ -48,6 +67,7 @@
     padding: 10px;
     font-size: 40px;
     row-gap: 10px;
+    font-family: PixelFont;
 }
 
 #replies div {
