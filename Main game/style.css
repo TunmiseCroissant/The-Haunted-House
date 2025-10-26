@@ -30,6 +30,7 @@
     align-content: center;
     flex-direction: column;
     row-gap: 80px;
+    color: #332421;
 }
 
 #currentLine {
