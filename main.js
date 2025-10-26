@@ -1,12 +1,14 @@
 // set up the document elements
 let dialogueBox = document.getElementById("dialogue");
 let replyBox = document.getElementById("replies");
-let currentLine = document.getElementById("currentLine");
+let currentLine = document.getElementById("SpeakerDialogue");
+let speaker = document.getElementById("speakerLine");
+
 
 class Dialogue {
-    constructor(lines, replies) {
-        this.lines = lines,
-        this.replies = replies
+    constructor(dialogue) {
+        this.lines = dialogue.lines,
+        this.replies = generateDialogueReplies(dialogue.replies)
         this.index = 0
         this.ResponeLines = []
         this.ReponseIndex = 0
@@ -17,7 +19,8 @@ class Dialogue {
     // starts the dialogue
     startDialogue() {
         this.index = 0
-        currentLine.innerText = this.lines[this.index]
+        speaker.innerText = this.lines[this.index][0]
+        currentLine.innerText = this.lines[this.index][1]
         dialogueBox.style.display = "flex"
         this.usingResponseLines = false
         this.checkLinesToUse()
@@ -28,7 +31,8 @@ class Dialogue {
                         dialogueBox.style.display = "none"
                     } else {
                         this.index++
-                        currentLine.innerText = this.lines[this.index]
+                        speaker.innerText = this.lines[this.index][0]
+                        currentLine.innerText = this.lines[this.index][1]
                     }
                     this.checkLinesToUse()
 
@@ -39,12 +43,14 @@ class Dialogue {
                         } else {
                             this.usingResponseLines = false
                             this.index++
-                            currentLine.innerText = this.lines[this.index]
+                            speaker.innerText = this.lines[this.index][0]
+                            currentLine.innerText = this.lines[this.index][1]
                             this.checkLinesToUse()
                         }
                     } else if (this.running) {
                         this.ReponseIndex++
-                        currentLine.innerText = this.ResponeLines[this.ReponseIndex]
+                        currentLine.innerText = this.ResponeLines[this.ReponseIndex][1]
+                        speaker.innerText = this.ResponeLines[this.ReponseIndex][0]
                     }
             }
         })
@@ -66,10 +72,12 @@ class Dialogue {
                     this.running = true
                     this.ResponeLines = reply.linesAfter
                     this.ReponseIndex = 0
-                    currentLine.innerText = this.ResponeLines[0]
+                    currentLine.innerText = this.ResponeLines[this.ReponseIndex][1]
+                    speaker.innerText = this.ResponeLines[this.ReponseIndex][0]
                     replyBox.innerHTML = ""
                 })
             })
+            replyBox.style.display = "flex"
         }
     }
 
@@ -81,7 +89,7 @@ class Dialogue {
 let generateDialogueReplies = (replies) => {
     const Returnreplies = new Map()
     Object.keys(replies).forEach((reply) => {
-        Returnreplies.set(reply, turnToObject(replies[reply]))
+        Returnreplies.set(reply, replies[reply])
     })
 
     return Returnreplies
@@ -97,14 +105,19 @@ let turnToObject = (array) => {
 
 // test dialogue
 
-
-const test2 = {
-    1: [["display this", "line after 1", "line after 2"], ["display this 2nd", "after you display 2", "after 2"]] 
-    // the format for replies is the line number mapped to the array, the first item being the display text and everything after that is lines after that
+const test1 = {
+    lines: [["David", "hi"], ["David", "bye"]],
+    replies: {
+        1: [
+            {displayText: "show me", linesAfter: [["Bob", "Hello"], ["Dad", "I know"]]},
+            {displayText: "Also this", linesAfter: [["Mom", "No"], ["Mom", "why"]]}
+        ]
+    }
 }
 
-const D1 = new Dialogue(["your mom", "your dad", "your cat"], generateDialogueReplies(test2))
+const D2 = new Dialogue(test1)
 
-D1.startDialogue()
+D2.startDialogue()
+
 
 // end test dialogue
