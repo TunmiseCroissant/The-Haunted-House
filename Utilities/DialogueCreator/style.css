@@ -73,3 +73,28 @@ header p, header label {
 #addNewDialogue {
     margin-right: 100px;
 }
+
+main {
+    height: 85vh;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+#viewer {
+    font-family: "PixelFont";
+    font-size: 20px;
+    line-height: 15px;
+    margin-left: 20px;
+}
+
+#DialogueTitle {
+    margin-bottom: 50px;
+}
+
+#editor {
+    border-right: 1px solid black;
+}
+
+#dialogue details p {
+    margin-left: 30px;
+}
