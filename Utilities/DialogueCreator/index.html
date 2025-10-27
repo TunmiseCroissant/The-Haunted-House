@@ -106,14 +106,17 @@
             </details>
             <button id = "deleteDialogue">Delete Dialogue</button>
         </nav>
-        <dialog>
+        <dialog id = "popUp">
             <form id = "NewDialogue">
+                <div>
                 <label for = "DialogueName">Dialogue Name: </label>
                 <input type = "text" id = "DialogueName">
-                <label for = "Speakers">Speakers</label>
-                <p>Please enter each name you want seperated by a comma, for example: "Bob, Drake, Dad". Empty names will be ignored. You may add more speakers later.</p>
-                <textarea id = "Speakers">Dad, Mom, Sister...</textarea>
+                </div>
+                <label for = "Speakers">Speakers:</label>
+                <p>Please enter each name you want seperated by a comma, for example: "Bob, Drake, Dad". <br>Empty names will be ignored. You may add more speakers later.</p>
+                <textarea id = "Speakers" placeholder="Dad, Mom, Sister..."></textarea>
                 <button type = "submit">Create dialogue</button>
+                <button type = "button" id = "cancelButton">Cancel</button>
             </form>
         </dialog>
         <ul id = "contextMenu">

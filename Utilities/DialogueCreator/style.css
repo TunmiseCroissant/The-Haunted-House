@@ -181,3 +181,35 @@ footer button {
     width: 50%;
     margin-top: 10px;
 }
+
+dialog {
+    width: 40vw;
+}
+
+#NewDialogue {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#NewDialogue div label {
+    font-size: 30px;
+}
+
+#NewDialogue div {
+    margin-bottom: 40px;
+}
+
+#NewDialogue label {
+    font-size: 20px;
+}
+
+#NewDialogue textarea {
+    margin-bottom: 10px;
+}
+
+#NewDialogue button {
+    margin-bottom: 10px;
+}
