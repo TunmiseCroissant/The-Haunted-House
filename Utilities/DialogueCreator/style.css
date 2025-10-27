@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: PixelFont;
 }
 
 @font-face {
@@ -95,6 +96,10 @@ main {
     border-right: 1px solid black;
 }
 
+#editor h2 {
+    margin-bottom: 10px;
+}
+
 #dialogue details p {
     margin-left: 30px;
 }
@@ -129,4 +134,50 @@ footer button {
 #upload {
     padding-left: 20px;
     padding-right: 20px;
+}
+
+#replyEditor form {
+    margin-top: 20px;
+}
+
+#replyEditor form button{
+    margin-top: 20px;
+}
+
+#Empty {
+    display: none;
+    flex-direction: column;
+    align-items: start;
+}
+
+#EmptyForm {
+    gap: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+#DialogueTextArea {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    width: 100%;
+}
+
+#DialogueTextArea textarea {
+    width: 100%;
+    height: 50px;
+}
+
+#LineEditor {
+    display: none;
+}
+
+#LineEditor form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 50%;
+    margin-top: 10px;
 }
