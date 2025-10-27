@@ -4,14 +4,14 @@
 
 @font-face {
     font-family: "PixelFont";
-    src: url(./fonts/thatthatnewpixelfamilytest-square.otf);
+    src: url(../fonts/thatthatnewpixelfamilytest-square.otf);
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: "PixelFont";
-    src: url(./fonts/thatthatnewpixelfamilytest-italicsquare.otf);
+    src: url(../fonts/thatthatnewpixelfamilytest-italicsquare.otf);
     font-weight: normal;
     font-style: italic;
 }
@@ -46,7 +46,7 @@
     line-height: 50px;
     width: 90%;
     font-family: PixelFont;
-    background-image: url(./images/dialogueBox.png);
+    background-image: url("../images/dialogueBox.png");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;

@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "PixelFont";
+    src: url(./fonts/thatthatnewpixelfamilytest-square.otf) format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "PixelFont";
+    src: url(./fonts/thatthatnewpixelfamilytest-italicsquare.otf) format("opentype");
+    font-weight: normal;
+    font-style: italic;
+}  
+
+header {
+    display: flex;
+    height: 7vh;
+    justify-content: center;
+    align-items: end;
+    align-content: baseline;
+    margin: 0;
+    padding: 10px;
+    padding-bottom: 0px;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+body {
+    width: 100%;
+    padding: 0;
+}
+
+header div {
+    display: flex;
+    justify-content: start;
+    align-items: baseline;
+    gap: 30px;
+    width: 50%;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+header h1 {
+    font-family: "PixelFont";
+    font-style: italic;
+    font-weight: normal;
+    font-size: 50px;
+}
+
+#title {
+    height: fit-content;
+    line-height: 0px;
+}
+
+#DialogueHeader {
+    justify-content: end;
+    padding-right: 30px;
+    gap: 10px;
+}
+
+#addNewDialogue {
+    margin-right: 30px;
+}
