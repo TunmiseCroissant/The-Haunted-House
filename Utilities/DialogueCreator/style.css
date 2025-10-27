@@ -4,14 +4,14 @@
 
 @font-face {
     font-family: "PixelFont";
-    src: url(./fonts/thatthatnewpixelfamilytest-square.otf) format("opentype");
+    src: url(../../fonts/thatthatnewpixelfamilytest-square.otf) format("opentype");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: "PixelFont";
-    src: url(./fonts/thatthatnewpixelfamilytest-italicsquare.otf) format("opentype");
+    src: url(../../fonts/thatthatnewpixelfamilytest-italicsquare.otf) format("opentype");
     font-weight: normal;
     font-style: italic;
 }  
@@ -52,6 +52,11 @@ header h1 {
     font-size: 50px;
 }
 
+header p, header label {
+    font-family: "PixelFont";
+    font-size: 20px;    
+}
+
 #title {
     height: fit-content;
     line-height: 0px;
@@ -61,8 +66,10 @@ header h1 {
     justify-content: end;
     padding-right: 30px;
     gap: 10px;
+    display: flex;
+    align-items: center;
 }
 
 #addNewDialogue {
-    margin-right: 30px;
+    margin-right: 100px;
 }
