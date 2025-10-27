@@ -98,3 +98,35 @@ main {
 #dialogue details p {
     margin-left: 30px;
 }
+
+#contextMenu {
+    display: none;
+}
+
+nav {
+    display: none;
+}
+
+footer {
+    height: 7vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    font-family: "PixelFont";
+    font-size: 20px;  
+    border-top: 1px solid black;
+}
+
+button {
+    font-family: "PixelFont";
+}
+
+footer button {
+    font-size: 17px;
+}
+
+#upload {
+    padding-left: 20px;
+    padding-right: 20px;
+}
