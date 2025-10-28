@@ -13,7 +13,6 @@
             <div id = "DialogueHeader">
                 <label for = "SelectDialogue">Select Dialogue</label>
                 <select id = "SelectDialogue">
-                    <option>Deafult</option>
                 </select>
                 <button id = "addNewDialogue">Add new</button>
                 <button id = "menu">Menu</button>
@@ -107,14 +106,14 @@
             <button id = "deleteDialogue">Delete Dialogue</button>
         </nav>
         <dialog id = "popUp">
-            <form id = "NewDialogue">
+            <form id = "NewDialogue" >
                 <div>
                 <label for = "DialogueName">Dialogue Name: </label>
-                <input type = "text" id = "DialogueName">
+                <input type = "text" id = "DialogueName" name = "DialogueName" required minlength="3">
                 </div>
                 <label for = "Speakers">Speakers:</label>
                 <p>Please enter each name you want seperated by a comma, for example: "Bob, Drake, Dad". <br>Empty names will be ignored. You may add more speakers later.</p>
-                <textarea id = "Speakers" placeholder="Dad, Mom, Sister..."></textarea>
+                <textarea id = "Speakers" name = "Speakers" placeholder="Dad, Mom, Sister..." required></textarea>
                 <button type = "submit">Create dialogue</button>
                 <button type = "button" id = "cancelButton">Cancel</button>
             </form>
