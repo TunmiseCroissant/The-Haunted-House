@@ -136,6 +136,10 @@ footer button {
     padding-right: 20px;
 }
 
+#replyEditor {
+    display: none;
+}
+
 #replyEditor form {
     margin-top: 20px;
 }
@@ -145,7 +149,7 @@ footer button {
 }
 
 #Empty {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: start;
 }

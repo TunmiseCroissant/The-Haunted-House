@@ -1,13 +1,14 @@
 const dialogues = JSON.parse(localStorage.getItem("dialogues")) || {};
 const popUp = document.getElementById("popUp");
-
+let currentDialogue;
 
 const LoadDialoguesFromStorage = () => {
 
 }
 
 class Dialogue {
-    constructor (speakers) {
+    constructor (name, speakers) {
+        this.name = name
         this.speakers = speakers
     }
 
@@ -16,7 +17,7 @@ class Dialogue {
 const addDialogue = () => {
     popUp.showModal()
     document.getElementById("cancelButton").addEventListener("click", () => {
-        popUp.close();
+        if (!Object.keys(dialogues).length === 0) popUp.close();
     })
     document.getElementById("NewDialogue").addEventListener("submit", () => {
         event.preventDefault();
@@ -29,8 +30,9 @@ const addDialogue = () => {
                 filteredSpeakers.push(speaker)
             }
         })
-        dialogues[NewDialogue.get("DialogueName")] = new Dialogue(filteredSpeakers)
-        console.log(filteredSpeakers)
+        dialogues[NewDialogue.get("DialogueName")] = new Dialogue(NewDialogue.get("DialogueName"), filteredSpeakers)
+        currentDialogue = dialogues[NewDialogue.get("DialogueName")]
+        showEditor("empty")
         popUp.close()
         refreshSelector()
     })
@@ -39,9 +41,39 @@ const addDialogue = () => {
 const refreshSelector = () => {
     let DialogueOptions = ""
     Object.keys(dialogues).forEach((key) => {
-        DialogueOptions += `<option>${key}</option>`
+        DialogueOptions += `<option value = "${key}">${key}</option>`
     })
     document.getElementById("SelectDialogue").innerHTML = DialogueOptions
+    document.getElementById("SelectDialogue").value = currentDialogue.name
+
+    let SpeakerOptions = ""
+    currentDialogue.speakers.forEach(key => {
+        SpeakerOptions += `<option value = "${key}">${key}</option>`
+    })
+    let shownElement = document.getElementById("EmptyFormSpeaker").style.display === "none" ? "lineEditorSpeaker" : "EmptyFormSpeaker"
+    document.getElementById(shownElement).innerHTML = SpeakerOptions
 }
 
 Object.keys(dialogues).length === 0 ? addDialogue() : LoadDialoguesFromStorage()
+
+ document.getElementById("SelectDialogue").addEventListener("change", (e) => {
+    console.log(e.target.value)
+ })
+
+ const showEditor = (editor = "line") => {
+    if (editor.toLowerCase() === "empty") {
+        document.getElementById("Empty").style.display = "flex"
+        document.getElementById("replyEditor").style.display = "none"
+        document.getElementById("LineEditor").style.display = "none"
+        document.getElementById("lineType").style.display = "none"
+        document.getElementById("lineTypeLabel").style.display = "none"
+    } else if (editor.toLowerCase() === "line") {
+        document.getElementById("Empty").style.display = "none"
+        document.getElementById("replyEditor").style.display = "none"
+        document.getElementById("LineEditor").style.display = "flex"
+    } else if (editor.toLowerCase() === "reply") {
+        document.getElementById("Empty").style.display = "none"
+        document.getElementById("replyEditor").style.display = "flex"
+        document.getElementById("LineEditor").style.display = "none"
+    }
+ }
