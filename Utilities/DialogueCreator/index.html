@@ -23,22 +23,22 @@
                 <h2>Editor</h2>
                 <label for = "lineType" id = "lineTypeLabel">Line type:</label>
                 <select id = "lineType">
-                    <option>Normal Line</option>
-                    <option>Player Reply</option>
-                    <option>Line in Reply</option>
+                    <option value = "normal">Normal Line</option>
+                    <option value = "reply">Player Reply</option>
+                    <option value = "replyLine">Line in Reply</option>
                 </select>
                 <div id = "Empty">
                     <p>No lines yet. <br> Click to add the first one</p>
                     <form id = "EmptyForm">
                         <div>
                         <label for = "EmptyFormSpeaker">Speaker: </label>
-                        <select class = "speakerDropDown" id = "EmptyFormSpeaker">
+                        <select class = "speakerDropDown" id = "EmptyFormSpeaker" name = "speaker">
                             <option>Noelle</option>
                         </select>
                         </div>
                         <div id ="DialogueTextArea">
                         <label for = "EmptySpeakerLine">Dialogue:</label>
-                        <textarea class = "speakerLine" id = "EmptySpeakerLine"></textarea>
+                        <textarea class = "speakerLine" id = "EmptySpeakerLine" name = "line" required></textarea>
                         </div>
                         <button type="submit" class = "submitButton" id = "EmptySubmit">Add</button>
                     </form>
@@ -51,7 +51,7 @@
                             <option>Deafult</option>
                         </select>
                         </div>
-                        <textarea></textarea>
+                        <textarea required></textarea>
                         <button type = "submit" id = "submitLine">Add Line</button>
                     </form>
                 </div>
@@ -67,13 +67,6 @@
             <section id = "viewer">
                 <h2 id = "DialogueTitle">Dialogue Name</h2>
                 <div id = "dialogue">
-                    <p>Speaker: line 1</p>
-                    <p>Speaker: line 2</p>
-                    <details>
-                        <summary>Reply 1</summary>
-                        <p>Speaker: hi</p>
-                        <p>Speaker: bye</p>
-                    </details>
                 </div>
             </section>
         </main>
