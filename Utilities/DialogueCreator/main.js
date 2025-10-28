@@ -56,8 +56,9 @@ const refreshSelector = () => {
     currentDialogue.speakers.forEach(key => {
         SpeakerOptions += `<option value = "${key}">${key}</option>`
     })
-    let shownElement = document.getElementById("EmptyFormSpeaker").style.display === "none" ? "lineEditorSpeaker" : "EmptyFormSpeaker"
-    document.getElementById(shownElement).innerHTML = SpeakerOptions
+    
+    document.getElementById("lineEditorSpeaker").innerHTML = SpeakerOptions
+    document.getElementById("EmptyFormSpeaker").innerHTML = SpeakerOptions
 }
 
 Object.keys(dialogues).length === 0 ? addDialogue() : LoadDialoguesFromStorage()
@@ -104,4 +105,12 @@ Object.keys(dialogues).length === 0 ? addDialogue() : LoadDialoguesFromStorage()
     currentDialogue.lines.push([NewLine.get("speaker"), NewLine.get("line")])
     refreshDialogueLines()
     showEditor()
+ })
+
+ document.getElementById("LineEditorForm").addEventListener("submit", (event) => {
+    event.preventDefault()
+
+    let NewLine = new FormData(document.getElementById("LineEditorForm"))
+    currentDialogue.lines.push([NewLine.get("speaker"), NewLine.get("line")])
+    refreshDialogueLines()
  })
