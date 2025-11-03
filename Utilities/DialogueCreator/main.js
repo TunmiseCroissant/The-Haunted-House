@@ -1,6 +1,9 @@
 const dialogues = JSON.parse(localStorage.getItem("dialogues")) || {};
 const popUp = document.getElementById("popUp");
 let currentDialogue;
+currentIndex = 0;
+currentLine = null
+type = "line"
 
 const LoadDialoguesFromStorage = () => {
 
@@ -11,6 +14,7 @@ class Dialogue {
         this.name = name
         this.speakers = speakers
         this.lines = []
+        this.replies = {}
     }
 
 }
@@ -24,6 +28,7 @@ const addDialogue = () => {
         event.preventDefault();
 
         let NewDialogue = new FormData(document.getElementById("NewDialogue"))
+        let NewName = NewDialogue.get("DialogueName").replaceAll(/\s+/g, "-")
         let Speakers = NewDialogue.get("Speakers").split(",").map(item => item.trim()).filter(item => item);
         let filteredSpeakers = []
         Speakers.forEach(speaker => {
@@ -31,8 +36,8 @@ const addDialogue = () => {
                 filteredSpeakers.push(speaker)
             }
         })
-        dialogues[NewDialogue.get("DialogueName")] = new Dialogue(NewDialogue.get("DialogueName"), filteredSpeakers)
-        currentDialogue = dialogues[NewDialogue.get("DialogueName")]
+        dialogues[NewName] = new Dialogue(NewName, filteredSpeakers)
+        currentDialogue = dialogues[NewName]
         showEditor("empty")
         setTitle()
         popUp.close()
@@ -41,13 +46,13 @@ const addDialogue = () => {
 }
 
 const setTitle = () => {
-    document.getElementById("DialogueTitle").innerText = currentDialogue.name
+    document.getElementById("DialogueTitle").innerText = currentDialogue.name.replaceAll("-", " ")
 }
 
 const refreshSelector = () => {
     let DialogueOptions = ""
     Object.keys(dialogues).forEach((key) => {
-        DialogueOptions += `<option value = "${key}">${key}</option>`
+        DialogueOptions += `<option value = "${key}">${key.replaceAll("-", " ")}</option>`
     })
     document.getElementById("SelectDialogue").innerHTML = DialogueOptions
     document.getElementById("SelectDialogue").value = currentDialogue.name
@@ -56,7 +61,7 @@ const refreshSelector = () => {
     currentDialogue.speakers.forEach(key => {
         SpeakerOptions += `<option value = "${key}">${key}</option>`
     })
-    
+
     document.getElementById("lineEditorSpeaker").innerHTML = SpeakerOptions
     document.getElementById("EmptyFormSpeaker").innerHTML = SpeakerOptions
 }
@@ -69,33 +74,61 @@ Object.keys(dialogues).length === 0 ? addDialogue() : LoadDialoguesFromStorage()
  })
 
  const showEditor = (editor = "line") => {
+    let empty = document.getElementById("Empty")
+    let replyEditor = document.getElementById("replyEditor")
+    let LineEditor = document.getElementById("LineEditor")
+    let lineType = document.getElementById("lineType")
+    let lineTypeLabel = document.getElementById("lineTypeLabel")
     if (editor.toLowerCase() === "empty") {
-        document.getElementById("Empty").style.display = "flex"
-        document.getElementById("replyEditor").style.display = "none"
-        document.getElementById("LineEditor").style.display = "none"
-        document.getElementById("lineType").style.display = "none"
-        document.getElementById("lineTypeLabel").style.display = "none"
-    } else if (editor.toLowerCase() === "line") {
-        document.getElementById("Empty").style.display = "none"
-        document.getElementById("replyEditor").style.display = "none"
-        document.getElementById("LineEditor").style.display = "flex"
-        document.getElementById("lineType").style.display = "inline"
-        document.getElementById("lineTypeLabel").style.display = "inline"
+        empty.style.display = "flex"
+        replyEditor.style.display = "none"
+        LineEditor.style.display = "none"
+        lineType.style.display = "none"
+        lineTypeLabel.style.display = "none"
+    } else if (editor.toLowerCase() === "line" || editor.toLowerCase() == "replyLine") {
+        empty.style.display = "none"
+        replyEditor.style.display = "none"
+        LineEditor.style.display = "flex"
+        lineType.style.display = "inline"
+        lineTypeLabel.style.display = "inline"
     } else if (editor.toLowerCase() === "reply") {
-        document.getElementById("Empty").style.display = "none"
-        document.getElementById("replyEditor").style.display = "flex"
-        document.getElementById("LineEditor").style.display = "none"
-        document.getElementById("lineType").style.display = "inline"
-        document.getElementById("lineTypeLabel").style.display = "inline"
+        empty.style.display = "none"
+        replyEditor.style.display = "flex"
+        LineEditor.style.display = "none"
+        lineType.style.display = "inline"
+        lineTypeLabel.style.display = "inline"
     }
  }
 
  const refreshDialogueLines = () => {
-    let DialogueHTML = ""
-    currentDialogue.lines.forEach(([speaker, line]) => {
-        DialogueHTML += `<p>${speaker}: ${line}</p>`
+    document.getElementById("dialogue").innerHTML = ""
+
+    currentDialogue.lines.forEach((dialogue) => {
+        let Element = document.createElement("p")
+        Element.innerText = `${dialogue[0]}: ${dialogue[1]}`
+        Element.index = currentDialogue.lines.indexOf(dialogue)
+        if (Element.index == currentIndex) {
+            if (currentLine) currentLine.classList.remove("selected")
+            currentLine = Element
+            Element.classList.add("selected")
+        }
+        Element.addEventListener("click", (e) => {
+            currentIndex = e.target.index
+
+            if (currentLine && currentLine != Element) {
+                currentLine.classList.remove("selected")
+            }
+
+            currentLine = Element
+            Element.classList.add("selected")
+
+        })
+        document.getElementById("dialogue").appendChild(Element)
+
+        if (currentDialogue.replies.hasOwnProperty(Element.index)) {
+            let ReplyDetail = document.createElement("details")
+        }
     })
-    document.getElementById("dialogue").innerHTML = DialogueHTML
  }
 
  document.getElementById("EmptyForm").addEventListener("submit", (event) => {
@@ -111,6 +144,24 @@ Object.keys(dialogues).length === 0 ? addDialogue() : LoadDialoguesFromStorage()
     event.preventDefault()
 
     let NewLine = new FormData(document.getElementById("LineEditorForm"))
-    currentDialogue.lines.push([NewLine.get("speaker"), NewLine.get("line")])
+    currentDialogue.lines.splice(currentIndex + 1, 0, [NewLine.get("speaker"), NewLine.get("line")])
+    currentIndex++
     refreshDialogueLines()
+ })
+
+ document.getElementById("lineType").addEventListener("change", (event) => {
+    showEditor(event.target.value)
+ })
+
+ document.getElementById("newReply").addEventListener("submit", (event) => {
+    event.preventDefault()
+
+    let ReplyName = document.getElementById("displayText").value
+
+    if (!currentDialogue.replies.hasOwnProperty(currentIndex)) {
+        currentDialogue.replies[currentIndex] = [{displayText: ReplyName, linesAfter: []}]
+    } else {
+        currentDialogue.replies[currentIndex].push({displayText: ReplyName, linesAfter: []})
+    }
+
  })

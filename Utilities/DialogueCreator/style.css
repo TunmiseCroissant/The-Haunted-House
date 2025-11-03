@@ -217,3 +217,12 @@ dialog {
 #NewDialogue button {
     margin-bottom: 10px;
 }
+
+#dialogue p {
+    cursor: pointer;
+}
+
+.selected {
+    text-decoration: underline;
+}
+
