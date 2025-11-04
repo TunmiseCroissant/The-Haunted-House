@@ -4,6 +4,7 @@ let currentDialogue;
 currentIndex = 0;
 currentLine = null
 type = "line"
+let CurrentreplyIndex = 0;
 
 const LoadDialoguesFromStorage = () => {
 
@@ -107,7 +108,7 @@ Object.keys(dialogues).length === 0 ? addDialogue() : LoadDialoguesFromStorage()
         let Element = document.createElement("p")
         Element.innerText = `${dialogue[0]}: ${dialogue[1]}`
         Element.index = currentDialogue.lines.indexOf(dialogue)
-        if (Element.index == currentIndex) {
+        if (Element.index == currentIndex && type == "line") {
             if (currentLine) currentLine.classList.remove("selected")
             currentLine = Element
             Element.classList.add("selected")
@@ -122,11 +123,43 @@ Object.keys(dialogues).length === 0 ? addDialogue() : LoadDialoguesFromStorage()
             currentLine = Element
             Element.classList.add("selected")
 
+            type = "line"
+
+            document.getElementById("replyLineOption").style.display = "none"
+
         })
         document.getElementById("dialogue").appendChild(Element)
 
         if (currentDialogue.replies.hasOwnProperty(Element.index)) {
-            let ReplyDetail = document.createElement("details")
+            currentDialogue.replies[Element.index].forEach((reply) => {
+                let ReplyDetail = document.createElement("details")
+                let ReplySummary = document.createElement("summary")
+                ReplySummary.innerText = reply.displayText
+                ReplyDetail.index = currentDialogue.replies[Element.index].indexOf(reply)
+                ReplyDetail.appendChild(ReplySummary)
+                
+                document.getElementById("dialogue").appendChild(ReplyDetail)
+
+                if (CurrentreplyIndex == ReplyDetail.index && type == "reply") {
+                    currentIndex = Element.index
+                    currentLine.classList.remove("selected")
+                    currentLine = ReplyDetail
+                    ReplyDetail.classList.add("selected")
+                    document.getElementById("replyLineOption").style.display = "inline"
+                }
+
+                ReplySummary.addEventListener("click", () => {
+                    currentIndex = Element.index
+                    currentLine.classList.remove("selected")
+                    currentLine = ReplyDetail
+                    ReplyDetail.classList.add("selected")
+                    type = "reply"
+
+                    CurrentreplyIndex = ReplyDetail.index
+
+                   document.getElementById("replyLineOption").style.display = "inline"
+                })
+            })
         }
     })
  }
@@ -163,5 +196,7 @@ Object.keys(dialogues).length === 0 ? addDialogue() : LoadDialoguesFromStorage()
     } else {
         currentDialogue.replies[currentIndex].push({displayText: ReplyName, linesAfter: []})
     }
+
+    refreshDialogueLines()
 
  })

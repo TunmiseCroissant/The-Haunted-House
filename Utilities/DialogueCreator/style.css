@@ -226,3 +226,10 @@ dialog {
     text-decoration: underline;
 }
 
+#replyLineOption {
+    display: none;
+}
+
+details {
+    margin-bottom: 10px;
+}
