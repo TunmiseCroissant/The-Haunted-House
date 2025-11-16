@@ -19,7 +19,7 @@
 
 #dialogue {
     position: fixed;
-    bottom: 20px;
+    bottom: 50px; 
     left: 0;
     width: 100%;
     height: fit-content;
@@ -29,12 +29,12 @@
     align-items: center;
     align-content: center;
     flex-direction: column;
-    row-gap: 80px;
+    row-gap: 50px;
     color: #332421;
 }
 
 #currentLine {
-    height: 570px;
+    height: fit-content;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -46,12 +46,15 @@
     line-height: 50px;
     width: 90%;
     font-family: PixelFont;
+    border: 2px solid black;
+    /*
     background-image: url("../images/dialogueBox.png");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
     background-clip: border-box;
     overflow: visible;
+    */
     gap: 0;
 
 }
@@ -59,16 +62,16 @@
 #SpeakerDialogue {
     width: 80%;
     text-align: center;
+    
 }
 
 #speakerLine {
-    position: absolute;
-    top: 95px;
     text-align: start;
     width: 70%;
     font-family: PixelFont;
     font-size: 70px;
     font-style: italic;
+    margin-bottom: 10px;
 }
 
 #replies {

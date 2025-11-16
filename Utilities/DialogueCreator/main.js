@@ -5,6 +5,7 @@ currentIndex = 0;
 currentLine = null
 type = "line"
 let CurrentreplyIndex = 0;
+normalLine = true;
 
 const LoadDialoguesFromStorage = () => {
 

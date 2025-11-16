@@ -25,7 +25,7 @@ class Dialogue {
         this.usingResponseLines = false
         this.checkLinesToUse()
         this.running = true
-        currentLine.addEventListener("click", () => {
+        document.getElementById("currentLine").addEventListener("click", () => {
             if (!this.usingResponseLines) {
                     if (this.index === this.lines.length - 1) {
                         dialogueBox.style.display = "none"
@@ -106,7 +106,7 @@ let turnToObject = (array) => {
 // test dialogue
 
 const test1 = {
-    lines: [["David", "hi"], ["David", "bye"]],
+    lines: [["David", "hi"], ["David", "bye"], ["David", "toodles"]],
     replies: {
         1: [
             {displayText: "show me", linesAfter: [["Bob", "Hello"], ["Dad", "I know"]]},
